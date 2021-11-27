@@ -1,0 +1,125 @@
+#top {
+  grid-template-areas: 'logo menu config';
+  line-height: 2.3rem;
+  font-size: 2.3rem;
+  padding: 0 5px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto 1fr auto;
+  z-index: 2;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+
+  @media (max-width: 800px) {
+    grid-template-areas:
+      'logo config'
+      'menu config';
+    grid-template-columns: auto auto;
+  }
+
+  .logo {
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: auto 1fr;
+
+    .icon {
+      width: 2.5rem;
+      display: grid;
+      align-items: center;
+      background-color: transparent;
+    }
+    .text {
+      .top {
+        position: absolute;
+        left: 0.7rem;
+        top: -0.1rem;
+        font-size: 0.65rem;
+        line-height: 0.65rem;
+        color: #646669;
+        transition: 0.25s;
+      }
+      position: relative;
+      font-size: 2rem;
+      margin-bottom: 0.4rem;
+      font-family: 'Lexend Deca', sans-serif;
+      transition: 0.25s;
+    }
+  }
+
+  .menu {
+    font-size: 1rem;
+    line-height: 1rem;
+    color: #646669;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 0.5rem;
+    width: fit-content;
+    width: -moz-fit-content;
+
+    @media (max-width: 800px) {
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      line-height: 0.8rem;
+      margin-top: -0.5rem;
+    }
+
+    .icon-button {
+      display: grid;
+      grid-auto-flow: column;
+      align-content: center;
+      transition: 0.25s;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    @media (max-width: 800px) {
+      .icon-button {
+        padding: 0.25rem;
+      }
+    }
+    :hover {
+      color: #d1d0c5;
+    }
+  }
+
+  .config {
+    grid-area: config;
+    justify-self: right;
+    display: grid;
+    grid-template-rows: 0.7rem 0.7rem 0.7rem;
+    grid-gap: 0.2rem;
+    justify-items: self-end;
+
+    .group {
+      transition: 0.25s;
+      margin-bottom: -0.1rem;
+
+      .buttons {
+        font-size: 0.7rem;
+        line-height: 0.7rem;
+        display: flex;
+      }
+    }
+  }
+}
+.text-button {
+  transition: 0.25s;
+  color: #646669;
+  margin-right: 0.25rem;
+  cursor: pointer;
+  outline: none;
+  &:hover {
+    color: #d1d0c5;
+  }
+}
+.disabled {
+  pointer-events: none;
+  opacity: 0.25;
+}
+.active {
+  color: #e2b714;
+  &:hover {
+    color: #d1d0c5;
+  }
+}
