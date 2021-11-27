@@ -4,12 +4,16 @@ import { GiKeyboard } from 'react-icons/gi'
 import { IconContext } from 'react-icons/lib'
 import '../stylesheets/top.scss'
 
-const Top = () => {
-  const [selectedMode, setSelectedMode] = React.useState('standard') // standard | wikipedia | pokemon
-  const [selectedTestType, setSelectedTestType] = React.useState('time') // time | words
-  const [selectedDuration, setSelectedDuration] = React.useState('30') // time(in seconds): 15 30 60 120 |
-  const [selectedWordCount, setSelectedWordCount] = React.useState('50') // words: 10 25 50 100
-
+function Top({
+  selectedMode,
+  setSelectedMode,
+  selectedTestType,
+  setSelectedTestType,
+  selectedTimeLimit,
+  setSelectedTimeLimit,
+  selectedWordCount,
+  setSelectedWordCount
+}) {
   const standardButton = React.useRef()
   const wikipediaButton = React.useRef()
   const pokemonButton = React.useRef()
@@ -28,55 +32,51 @@ const Top = () => {
   const oneHundredAndFiftyWords = React.useRef()
 
   React.useEffect(() => {
-    if (selectedMode === 'standard') {
-      standardButton.current.className = 'text-button active'
-      wikipediaButton.current.className = 'text-button'
-      pokemonButton.current.className = 'text-button'
-      if (selectedTestType === 'time') {
-        timeButton.current.className = 'text-button active'
-        wordsButton.current.className = 'text-button'
+    const buttons = [standardButton, wikipediaButton, pokemonButton]
+    buttons.forEach(button => {
+      if (button.current.innerText === selectedMode) {
+        button.current.className = 'text-button active'
       } else {
-        timeButton.current.className = 'text-button'
-        wordsButton.current.className = 'text-button active'
+        button.current.className = 'text-button'
       }
-    } else if (selectedMode === 'wikipedia') {
-      standardButton.current.className = 'text-button'
-      wikipediaButton.current.className = 'text-button active'
-      pokemonButton.current.className = 'text-button'
-      setSelectedTestType('time')
-      wordsButton.current.className = 'text-button disabled'
-      timeButton.current.className = 'text-button active'
-    } else if (selectedMode === 'pokemon') {
-      standardButton.current.className = 'text-button'
-      wikipediaButton.current.className = 'text-button'
-      pokemonButton.current.className = 'text-button active'
-      setSelectedTestType('words')
-      timeButton.current.className = 'text-button disabled'
-      wordsButton.current.className = 'text-button active'
-    }
+
+      if (selectedMode === 'wikipedia') {
+        wordsButton.current.className = 'text-button disabled'
+        setSelectedTestType('time')
+        timeButton.current.className = 'text-button active'
+      } else {
+        if (selectedTestType === 'time') {
+          timeButton.current.className = 'text-button active'
+          wordsButton.current.className = 'text-button'
+        } else {
+          timeButton.current.className = 'text-button'
+          wordsButton.current.className = 'text-button active'
+        }
+      }
+    })
 
     console.log('Mode: ' + selectedMode)
     console.log('Test Type: ' + selectedTestType)
-  }, [selectedMode, selectedTestType])
+  }, [selectedMode, selectedTestType, setSelectedTestType])
 
   React.useEffect(() => {
     if (selectedTestType === 'time') {
-      if (selectedDuration === '15') {
+      if (selectedTimeLimit === '15') {
         fifteenSeconds.current.className = 'text-button active'
         thritySeconds.current.className = 'text-button'
         sixtySeconds.current.className = 'text-button'
         oneHundredAndTwentySeconds.current.className = 'text-button'
-      } else if (selectedDuration === '30') {
+      } else if (selectedTimeLimit === '30') {
         fifteenSeconds.current.className = 'text-button'
         thritySeconds.current.className = 'text-button active'
         sixtySeconds.current.className = 'text-button'
         oneHundredAndTwentySeconds.current.className = 'text-button'
-      } else if (selectedDuration === '60') {
+      } else if (selectedTimeLimit === '60') {
         fifteenSeconds.current.className = 'text-button'
         thritySeconds.current.className = 'text-button'
         sixtySeconds.current.className = 'text-button active'
         oneHundredAndTwentySeconds.current.className = 'text-button'
-      } else if (selectedDuration === '120') {
+      } else if (selectedTimeLimit === '120') {
         fifteenSeconds.current.className = 'text-button'
         thritySeconds.current.className = 'text-button'
         sixtySeconds.current.className = 'text-button'
@@ -117,11 +117,11 @@ const Top = () => {
     }
 
     if (selectedTestType === 'time') {
-      console.log('Duraction: ' + selectedDuration + ' seconds')
+      console.log('Duraction: ' + selectedTimeLimit + ' seconds')
     } else {
       console.log('Word Count: ' + selectedWordCount + ' words')
     }
-  }, [selectedTestType, selectedDuration, selectedWordCount])
+  }, [selectedTestType, selectedTimeLimit, selectedWordCount])
 
   return (
     <div id="top">
@@ -214,7 +214,7 @@ const Top = () => {
               <div
                 className="text-button"
                 tabIndex="2"
-                onClick={event => setSelectedDuration(event.target.innerText)}
+                onClick={event => setSelectedTimeLimit(event.target.innerText)}
                 ref={fifteenSeconds}
               >
                 15
@@ -222,7 +222,7 @@ const Top = () => {
               <div
                 className="text-button"
                 tabIndex="2"
-                onClick={event => setSelectedDuration(event.target.innerText)}
+                onClick={event => setSelectedTimeLimit(event.target.innerText)}
                 ref={thritySeconds}
               >
                 30
@@ -230,7 +230,7 @@ const Top = () => {
               <div
                 className="text-button"
                 tabIndex="2"
-                onClick={event => setSelectedDuration(event.target.innerText)}
+                onClick={event => setSelectedTimeLimit(event.target.innerText)}
                 ref={sixtySeconds}
               >
                 60
@@ -238,7 +238,7 @@ const Top = () => {
               <div
                 className="text-button"
                 tabIndex="2"
-                onClick={event => setSelectedDuration(event.target.innerText)}
+                onClick={event => setSelectedTimeLimit(event.target.innerText)}
                 ref={oneHundredAndTwentySeconds}
               >
                 120
