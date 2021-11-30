@@ -1,5 +1,6 @@
 {
   "name": "english_10k",
+  "description": "10k most popular words in the english language",
   "leftToRight": true,
   "noLazyMode": true,
   "words": [

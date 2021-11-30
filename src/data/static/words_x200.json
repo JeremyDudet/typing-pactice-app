@@ -1,5 +1,6 @@
 {
   "name": "english",
+  "description": "200 most popular words in the english language",
   "leftToRight": true,
   "noLazyMode": true,
   "words": [
